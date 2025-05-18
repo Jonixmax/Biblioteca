@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Gestión de Libros | Biblioteca Digital Interactiva – Lectura+";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+
+
+
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Gestión de Libros</h2>
+
+    <!-- Botones de Acción -->
+    <div class="d-flex flex-column flex-md-row gap-3 mb-4">
+        <button class="btn btn-primary flex-grow-1" onclick="toggleForm('agregar-form')">Agregar Libro</button>
+        <button class="btn btn-warning flex-grow-1" onclick="toggleForm('actualizar-form')">Actualizar Libro</button>
+        <button class="btn btn-danger flex-grow-1" onclick="toggleForm('eliminar-form')">Eliminar Libro</button>
+    </div>
+
+    <!-- Formulario para Agregar Libros -->
+    <div id="agregar-form" class="card mb-5 shadow-sm d-none">
+        <div class="card-body">
+            <h4 class="card-title">Agregar Libro</h4>
+            <form asp-action="AgregarLibro" method="post">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" name="Titulo" class="form-control" id="titulo" placeholder="Ingresa el título del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="autor" class="form-label">Autor</label>
+                    <input type="text" name="Autor" class="form-control" id="autor" placeholder="Ingresa el autor del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="genero" class="form-label">Género</label>
+                    <input type="text" name="Genero" class="form-control" id="genero" placeholder="Ingresa el género del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="sinopsis" class="form-label">Sinopsis</label>
+                    <textarea name="Sinopsis" class="form-control" id="sinopsis" rows="3" placeholder="Ingresa una breve sinopsis" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="portada" class="form-label">URL de la Portada</label>
+                    <input type="text" name="PortadaUrl" class="form-control" id="portada" placeholder="Ingresa la URL de la portada" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Agregar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Formulario para Actualizar Libros -->
+    <div id="actualizar-form" class="card mb-5 shadow-sm d-none">
+        <div class="card-body">
+            <h4 class="card-title">Actualizar Libro</h4>
+            <form asp-action="ActualizarLibro" method="post">
+                <div class="mb-3">
+                    <label for="idLibro" class="form-label">ID del Libro</label>
+                    <input type="number" name="idLibro" class="form-control" id="idLibro" placeholder="Ingresa el ID del libro a actualizar" required>
+                </div>
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" name="Titulo" class="form-control" id="titulo" placeholder="Ingresa el título del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="autor" class="form-label">Autor</label>
+                    <input type="text" name="Autor" class="form-control" id="autor" placeholder="Ingresa el autor del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="genero" class="form-label">Género</label>
+                    <input type="text" name="Genero" class="form-control" id="genero" placeholder="Ingresa el género del libro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="sinopsis" class="form-label">Sinopsis</label>
+                    <textarea name="Sinopsis" class="form-control" id="sinopsis" rows="3" placeholder="Ingresa una breve sinopsis" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="portada" class="form-label">URL de la Portada</label>
+                    <input type="text" name="PortadaUrl" class="form-control" id="portada" placeholder="Ingresa la URL de la portada" required>
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Formulario para Eliminar Libros -->
+    <div id="eliminar-form" class="card shadow-sm d-none">
+        <div class="card-body">
+            <h4 class="card-title">Eliminar Libro</h4>
+            <form asp-action="EliminarLibro" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este libro?');">
+                <div class="mb-3">
+                    <label for="idLibroEliminar" class="form-label">ID del Libro</label>
+                    <input type="number" name="idLibro" class="form-control" id="idLibroEliminar" placeholder="Ingresa el ID del libro a eliminar" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(formId) {
+        const forms = ['agregar-form', 'actualizar-form', 'eliminar-form'];
+        forms.forEach(id => {
+            const form = document.getElementById(id);
+            form.classList.add('d-none');
+            if (id === formId) {
+                form.classList.toggle('d-none');
+            }
+        });
+    }
+</script>

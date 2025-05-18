@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Explorar Libros | Biblioteca Digital Interactiva – Lectura+";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Explorar Libros</h2>
+
+    <!-- Sección del Top 5 -->
+    <h3 class="mb-4">Top 5 Libros Mejor Calificados 🥇🥈🥉</h3>
+    <div class="row" id="top5">
+        <!-- Aquí se cargarán los libros del Top 5 -->
+    </div>
+
+    <!-- Formulario de Búsqueda -->
+    <h3 class="mt-5 mb-4">Buscar Libros</h3>
+    <form id="searchForm" class="mb-5">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="searchTitulo" placeholder="Buscar por título">
+            </div>
+            <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="searchGenero" placeholder="Buscar por género">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </form>
+
+    <!-- Resultados de la búsqueda -->
+    <div class="row" id="searchResults">
+        <!-- Aquí se cargarán los resultados de la búsqueda -->
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<script>
+    // Cargar el Top 5 al cargar la página
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/Home/Top5")
+            .then(response => response.json())
+            .then(data => renderBooks(data, "top5"))
+            .catch(error => console.error("Error al cargar el Top 5:", error));
+    });
+
+    // Manejar la búsqueda
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const titulo = document.getElementById("searchTitulo").value;
+        const genero = document.getElementById("searchGenero").value;
+
+        fetch(`/Home/BuscarLibros?titulo=${titulo}&genero=${genero}`)
+            .then(response => response.json())
+            .then(data => renderBooks(data, "searchResults"))
+            .catch(error => console.error("Error al buscar libros:", error));
+    });
+
+    // Función para renderizar los libros en las secciones Top 5 y Resultados
+    function renderBooks(libros, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+
+        if (libros.length === 0) {
+            container.innerHTML = "<p class='text-center text-muted'>No se encontraron libros.</p>";
+            return;
+        }
+
+        libros.forEach(libro => {
+            const card = `
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="${libro.portadaUrl}" class="card-img-top" alt="${libro.titulo}" style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">${libro.titulo}</h5>
+                            <p class="card-text text-muted">${libro.genero}</p>
+                            <p class="card-text text-warning">
+                                ${renderStars(libro.puntuacionTotal)}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += card;
+        });
+    }
+
+    // Función para renderizar estrellas
+    function renderStars(puntuacion) {
+        let estrellas = "";
+        for (let i = 0; i < 5; i++) {
+            estrellas += i < puntuacion ? '<i class="fa fa-star text-warning"></i>' : '<i class="fa fa-star text-muted"></i>';
+        }
+        return estrellas;
+    }
+</script>
