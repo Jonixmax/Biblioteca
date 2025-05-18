@@ -134,6 +134,7 @@ namespace Biblioteca.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Top5()
         {
@@ -142,11 +143,13 @@ namespace Biblioteca.Controllers
                 {
                     libro.IdLibro,
                     libro.Titulo,
+                    libro.Autor,
                     libro.Genero,
+                    libro.Sinopsis,
                     libro.PortadaUrl,
                     PuntuacionTotal = _context.Calificaciones
                         .Where(c => c.IdLibro == libro.IdLibro)
-                        .Sum(c => c.Puntuacion) / 5
+                        .Sum(c => c.Puntuacion) / 5.0
                 })
                 .OrderByDescending(l => l.PuntuacionTotal)
                 .Take(5)
@@ -170,15 +173,18 @@ namespace Biblioteca.Controllers
             {
                 l.IdLibro,
                 l.Titulo,
+                l.Autor,
                 l.Genero,
+                l.Sinopsis,
                 l.PortadaUrl,
                 PuntuacionTotal = _context.Calificaciones
                     .Where(c => c.IdLibro == l.IdLibro)
-                    .Sum(c => c.Puntuacion) / 5
+                    .Sum(c => c.Puntuacion) / 5.0
             }).ToList();
 
             return Json(libros);
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

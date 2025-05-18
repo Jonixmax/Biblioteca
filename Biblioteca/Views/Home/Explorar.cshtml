@@ -71,7 +71,9 @@
                         <img src="${libro.portadaUrl}" class="card-img-top" alt="${libro.titulo}" style="height: 300px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">${libro.titulo}</h5>
-                            <p class="card-text text-muted">${libro.genero}</p>
+                            <p class="card-text"><strong>Autor:</strong> ${libro.autor}</p>
+                            <p class="card-text"><strong>Género:</strong> ${libro.genero}</p>
+                            <p class="card-text"><strong>Sinopsis:</strong> ${libro.sinopsis}</p>
                             <p class="card-text text-warning">
                                 ${renderStars(libro.puntuacionTotal)}
                             </p>
