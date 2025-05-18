@@ -29,7 +29,7 @@
 1. **Clonar este repositorio:**
 
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/Jonixmax/Biblioteca.git
    ```
 
 2. **Crear la base de datos en SQL Server:**
