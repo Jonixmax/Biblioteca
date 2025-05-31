@@ -10,6 +10,7 @@
 * **Exploración de Libros:** Búsqueda por título y género.
 * **Clasificación de Libros:** Permite a los usuarios calificar libros sin necesidad de registro.
 * **Top 5 Libros:** Muestra los libros mejor calificados.
+* **Video de demostración:** https://youtu.be/eDJRi-VuDho
 
 ## Tecnologías Utilizadas
 
@@ -102,8 +103,8 @@
 * **Clasificación:** Calificación rápida de libros del 1 al 5.
 
 ## Propuesta de mejorar 
-* **optimizacion de imagenes :** ajustar un tamaño valido en el apartado de filtracion de los libros
-* **ajustar el apartado de actualizacion de ejemplar** 
+* **Optimizacion de imagenes :** ajustar un tamaño valido en el apartado de filtracion de los libros
+* **Ajustar el apartado de actualizacion de ejemplar** 
 
 
 
